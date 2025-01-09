@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+    }
+    button {
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Update Prayer Timings</h2>
+  <form id="prayer-form">
+    <div>
+      <label for="fajr-azan">Fajr Azan Time</label>
+      <input type="text" id="fajr-azan" placeholder="Fajr Azan Time (05:00 AM)" required>
+      <label for="fajr-prayer">Fajr Prayer Time</label>
+      <input type="text" id="fajr-prayer" placeholder="Fajr Prayer Time" required>
+    </div>
+  
+    <div>
+      <label for="zuhr-azan">Zuhr Azan Time</label>
+      <input type="text" id="zuhr-azan" placeholder="Zuhr Azan Time" required>
+      <label for="zuhr-prayer">Zuhr Prayer Time</label>
+      <input type="text" id="zuhr-prayer" placeholder="Zuhr Prayer Time" required>
+    </div>
+  
+    <div>
+      <label for="asr-azan">Asr Azan Time</label>
+      <input type="text" id="asr-azan" placeholder="Asr Azan Time" required>
+      <label for="asr-prayer">Asr Prayer Time</label>
+      <input type="text" id="asr-prayer" placeholder="Asr Prayer Time" required>
+    </div>
+  
+    <div>
+      <label for="maghrib-azan">Maghrib Azan Time</label>
+      <input type="text" id="maghrib-azan" placeholder="Maghrib Azan Time" required>
+      <label for="maghrib-prayer">Maghrib Prayer Time</label>
+      <input type="text" id="maghrib-prayer" placeholder="Maghrib Prayer Time" required>
+    </div>
+  
+    <div>
+      <label for="isha-azan">Isha Azan Time</label>
+      <input type="text" id="isha-azan" placeholder="Isha Azan Time" required>
+      <label for="isha-prayer">Isha Prayer Time</label>
+      <input type="text" id="isha-prayer" placeholder="Isha Prayer Time" required>
+    </div>
+  
+    <div>
+        <label for="jumuah-azan">Isha Azan Time</label>
+        <input type="text" id="jumuah-azan" placeholder="jumuah Time " required>
+        <label for="jumuah-prayer">Isha Prayer Time</label>
+        <input type="text" id="jumuah-prayer" placeholder="jumuah Prayer Time" required>
+      </div>
+    <button type="submit">Update Prayer Timings</button>
+  </form>
+  
+
+  <h2>Update Latest News</h2>
+  <form id="news-form">
+    <input type="text" id="title" placeholder="News Title" required>
+    <textarea id="content" placeholder="News Content" required></textarea>
+    <button type="submit">Update News</button>
+  </form>
+
+  <script>
+   async function fetchAdminData() {
+  try {
+ // Save new token
+
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      alert('No token found! Please log in again.');
+      window.location.href = '/login.html'; // Redirect to login page
+      return;
+    }
+
+    const response = await fetch('http://localhost:5000/data', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      populatePrayerForm(data.prayerTimings);
+    } else {
+      alert('Failed to fetch data: ' + (data.message || 'Unknown error'));
+    }
+  } catch (error) {
+    alert('An error occurred while fetching data: ' + error.message);
+  }
+}
+
+function populatePrayerForm(prayerTimings) {
+  document.getElementById('fajr-azan').value = prayerTimings.fajr.azanTime || '';
+  document.getElementById('fajr-prayer').value = prayerTimings.fajr.prayerTime || '';
+  
+  document.getElementById('zuhr-azan').value = prayerTimings.zuhr.azanTime || '';
+  document.getElementById('zuhr-prayer').value = prayerTimings.zuhr.prayerTime || '';
+  
+  document.getElementById('asr-azan').value = prayerTimings.asr.azanTime || '';
+  document.getElementById('asr-prayer').value = prayerTimings.asr.prayerTime || '';
+  
+  document.getElementById('maghrib-azan').value = prayerTimings.maghrib.azanTime || '';
+  document.getElementById('maghrib-prayer').value = prayerTimings.maghrib.prayerTime || '';
+  
+  document.getElementById('isha-azan').value = prayerTimings.isha.azanTime || '';
+  document.getElementById('isha-prayer').value = prayerTimings.isha.prayerTime || '';
+
+  document.getElementById('jumuah-azan').value = prayerTimings.isha.azanTime || '';
+  document.getElementById('jumuah-prayer').value = prayerTimings.isha.prayerTime || '';
+}
+
+document.getElementById('prayer-form').addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const fajrAzan = document.getElementById('fajr-azan').value;
+  const fajrPrayer = document.getElementById('fajr-prayer').value;
+  const zuhrAzan = document.getElementById('zuhr-azan').value;
+  const zuhrPrayer = document.getElementById('zuhr-prayer').value;
+  const asrAzan = document.getElementById('asr-azan').value;
+  const asrPrayer = document.getElementById('asr-prayer').value;
+  const maghribAzan = document.getElementById('maghrib-azan').value;
+  const maghribPrayer = document.getElementById('maghrib-prayer').value;
+  const ishaAzan = document.getElementById('isha-azan').value;
+  const ishaPrayer = document.getElementById('isha-prayer').value;
+  const jumuahAzan = document.getElementById('jumuah-azan').value;
+  const jumuahPrayer = document.getElementById('jumuah-prayer').value;
+
+  const prayerData = {
+    fajr: { azanTime: fajrAzan, prayerTime: fajrPrayer },
+    zuhr: { azanTime: zuhrAzan, prayerTime: zuhrPrayer },
+    asr: { azanTime: asrAzan, prayerTime: asrPrayer },
+    maghrib: { azanTime: maghribAzan, prayerTime: maghribPrayer },
+    isha: { azanTime: ishaAzan, prayerTime: ishaPrayer },
+    jumuah: { azanTime: jumuahAzan, prayerTime: jumuahPrayer }
+  };
+
+  const token = localStorage.getItem('token');
+  if (!token) {
+    alert('Please log in first.');
+    window.location.href = '/login.html';
+    return;
+  }
+
+  try {
+    const response = await fetch('http://localhost:5000/update/time', {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(prayerData),
+    });
+
+    const result = await response.json();
+    if (response.ok) {
+      alert('Prayer timings updated successfully!');
+    } else {
+      alert('Error updating prayer timings: ' + result.message);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    alert('An error occurred while updating prayer timings.');
+    console.log(localStorage.getItem('token'));
+  }
+});
+
+// Update news
+    document.getElementById('news-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const token = localStorage.getItem('token');
+      const newsData = {
+        title: document.getElementById('title').value,
+        content: document.getElementById('content').value,
+      };
+
+      const response = await fetch('http://localhost:5000/update/news', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify(newsData),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        alert('Latest news updated successfully');
+      } else {
+        alert('Failed to update news: ' + data.message);
+      }
+    });
+  </script>
+
+</body>
+</html>
