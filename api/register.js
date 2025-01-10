@@ -1,4 +1,4 @@
-import { Admin } from '../models/Admin';
+import { Admin } from "../models/admin";
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
