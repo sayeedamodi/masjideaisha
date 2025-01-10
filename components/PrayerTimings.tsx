@@ -19,7 +19,7 @@ const PrayerTimings = () => {
     // Fetch prayer times from the backend when the component mounts
     const fetchPrayerTimes = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/data'); // Replace with your actual backend URL
+        const response = await axios.get('http://masjideaisha.vercel.app/api/data'); // Replace with your actual backend URL
         const prayerData = response.data.prayerTimings;
 
         // Format the prayer data to match the structure in the frontend
