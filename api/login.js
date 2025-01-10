@@ -2,7 +2,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
-import {Admin} from '../models/admin' // Ensure you have your models defined elsewhere
+import {Admin} from '../models/admin'; // Ensure you have your models defined elsewhere
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
