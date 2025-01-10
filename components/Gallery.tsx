@@ -5,10 +5,10 @@ import ThreeSixtyIcon from '@mui/icons-material/ThreeSixty';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 const images = [
-  './gallery/masjid-photo1.jpg',
-  './gallery/masjid-photo2.jpg',
-  './gallery/masjid-photo3.jpg',
-  './gallery/masjid-photo4.jpg'
+  '/masjid-photo1.jpg',
+  '/masjid-photo2.jpg',
+  '/masjid-photo3.jpg',
+  '/masjid-photo4.jpg'
 ];
 
 const Gallery = () => {
