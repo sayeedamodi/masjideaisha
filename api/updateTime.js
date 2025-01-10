@@ -1,4 +1,4 @@
-import { Prayer } from '../models/Prayer';
+import { Prayer } from '../models/prayer';
 
 export default async function handler(req, res) {
   if (req.method === 'PUT') {

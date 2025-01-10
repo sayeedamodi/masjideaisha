@@ -1,5 +1,5 @@
-import { Prayer } from '../models/Prayer';
-import { News } from '../models/News';
+import {Prayer} from '../models/prayer';
+import {News} from '../models/news';
 import connectDB from '../db';
 
 export default async function handler(req, res) {
