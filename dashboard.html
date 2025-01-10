@@ -81,55 +81,64 @@
 
   <script>
    async function fetchAdminData() {
-  try {
- // Save new token
+      try {
+        const token = localStorage.getItem('token');
 
-    const token = localStorage.getItem('token');
+        if (!token) {
+          alert('No token found! Please log in again.');
+          window.location.href = '/login.html'; // Redirect to login page
+          return;
+        }
 
-    if (!token) {
-      alert('No token found! Please log in again.');
-      window.location.href = '/login.html'; // Redirect to login page
-      return;
+        const response = await fetch('http://localhost:5000/data', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          populatePrayerForm(data.prayerTimings);
+          populateNewsForm(data.Notice);
+        } else {
+          alert('Failed to fetch data: ' + (data.message || 'Unknown error'));
+        }
+      } catch (error) {
+        alert('An error occurred while fetching data: ' + error.message);
+      }
     }
 
-    const response = await fetch('http://localhost:5000/data', {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
-    });
+    // This function populates the prayer form with the fetched data
+    function populatePrayerForm(prayerTimings) {
+      document.getElementById('fajr-azan').value = prayerTimings.fajr.azanTime || '';
+      document.getElementById('fajr-prayer').value = prayerTimings.fajr.prayerTime || '';
+      
+      document.getElementById('zuhr-azan').value = prayerTimings.zuhr.azanTime || '';
+      document.getElementById('zuhr-prayer').value = prayerTimings.zuhr.prayerTime || '';
+      
+      document.getElementById('asr-azan').value = prayerTimings.asr.azanTime || '';
+      document.getElementById('asr-prayer').value = prayerTimings.asr.prayerTime || '';
+      
+      document.getElementById('maghrib-azan').value = prayerTimings.maghrib.azanTime || '';
+      document.getElementById('maghrib-prayer').value = prayerTimings.maghrib.prayerTime || '';
+      
+      document.getElementById('isha-azan').value = prayerTimings.isha.azanTime || '';
+      document.getElementById('isha-prayer').value = prayerTimings.isha.prayerTime || '';
 
-    const data = await response.json();
-
-    if (response.ok) {
-      populatePrayerForm(data.prayerTimings);
-    } else {
-      alert('Failed to fetch data: ' + (data.message || 'Unknown error'));
+      document.getElementById('jumuah-azan').value = prayerTimings.jumuah.azanTime || '';
+      document.getElementById('jumuah-prayer').value = prayerTimings.jumuah.prayerTime || '';
     }
-  } catch (error) {
-    alert('An error occurred while fetching data: ' + error.message);
-  }
-}
 
-function populatePrayerForm(prayerTimings) {
-  document.getElementById('fajr-azan').value = prayerTimings.fajr.azanTime || '';
-  document.getElementById('fajr-prayer').value = prayerTimings.fajr.prayerTime || '';
-  
-  document.getElementById('zuhr-azan').value = prayerTimings.zuhr.azanTime || '';
-  document.getElementById('zuhr-prayer').value = prayerTimings.zuhr.prayerTime || '';
-  
-  document.getElementById('asr-azan').value = prayerTimings.asr.azanTime || '';
-  document.getElementById('asr-prayer').value = prayerTimings.asr.prayerTime || '';
-  
-  document.getElementById('maghrib-azan').value = prayerTimings.maghrib.azanTime || '';
-  document.getElementById('maghrib-prayer').value = prayerTimings.maghrib.prayerTime || '';
-  
-  document.getElementById('isha-azan').value = prayerTimings.isha.azanTime || '';
-  document.getElementById('isha-prayer').value = prayerTimings.isha.prayerTime || '';
+    // This function populates the news form with the fetched data
+    function populateNewsForm(notice) {
+      document.getElementById('title').value = notice.title || '';
+      document.getElementById('content').value = notice.content || '';
+    }
 
-  document.getElementById('jumuah-azan').value = prayerTimings.isha.azanTime || '';
-  document.getElementById('jumuah-prayer').value = prayerTimings.isha.prayerTime || '';
-}
+    // Call fetchAdminData when the page loads
+    window.onload = fetchAdminData;
 
 document.getElementById('prayer-form').addEventListener('submit', async (event) => {
   event.preventDefault();

@@ -7,6 +7,7 @@ import NoticeBoard from '../components/NoticeBoard';
 import LatestInfo from '../components/LatestInfo';
 import Donate from '../components/Donate';
 import Gallery from '../components/Gallery';
+import FacebookFeed from '../components/Facebookfeed';
 import Footer from '../components/Footer';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -106,6 +107,7 @@ function App() {
           <LatestInfo />
           <Donate />
           <Gallery />
+          <FacebookFeed/>
           <Footer />
         </Box>
       </ErrorBoundary>

@@ -1,8 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Typography, Container, Box } from '@mui/material';
 import { QRCodeCanvas } from 'qrcode.react';  // Import QRCode component
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const Donate = () => {
+   useEffect(() => {
+          AOS.init({
+            duration: 1200, // animation duration in milliseconds
+            once: true, // animation triggers only once
+          });
+        }, []);
   const [open, setOpen] = useState(false);
   const [amount, setAmount] = useState('');
 
@@ -28,6 +36,7 @@ const Donate = () => {
   return (
     <Box sx={{ py: { xs: 4, md: 8 }, backgroundColor: 'primary.main', color: 'white' }}>
       <Container maxWidth="md" sx={{ textAlign: 'center' }}>
+        <section id="donate">
         <Typography variant="h3" gutterBottom>Support Our Mosque</Typography>
         <Typography variant="body1" sx={{ mb: 4 }}>
           Your generous donations help us maintain the mosque and support our community programs.
@@ -70,6 +79,7 @@ const Donate = () => {
             </Button>
           </DialogActions>
         </Dialog>
+        </section>
       </Container>
     </Box>
   );

@@ -129,13 +129,14 @@ app.post('/login', async (req, res) => {
 app.get('/data', async (req, res) => {
     try {
       const prayerTimings = await Prayer.findOne() || new Prayer();
-      res.json({ prayerTimings }); // Only send the prayerTimings object to the frontend
+      const Notice = await News.findOne() || new Prayer();
+      res.json({ prayerTimings , Notice }); // Only send the prayerTimings object to the frontend
     } catch (err) {
       res.status(500).json({ message: 'Error fetching data', error: err.message });
     }
   });
   
-  app.get('/notice', async (req, res) => {
+app.get('/notice', async (req, res) => {
     try {
       const Notice = await News.findOne() || new Prayer();
       res.json({ Notice }); 
