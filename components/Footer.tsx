@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Container, Typography, Link, Grid, Box, IconButton } from '@mui/material';
+import PermContactCalendarOutlinedIcon from '@mui/icons-material/PermContactCalendarOutlined';
 import { Facebook, Twitter, Instagram } from '@mui/icons-material';
 import MapFooterEmbed from './Mapfooterembed';
 import AOS from 'aos';
@@ -46,10 +47,10 @@ const Footer = () => {
               Quick Links
             </Typography>
             <Box>
-              <Link href="#" color="inherit" display="block" sx={{ mb: 1, fontSize: { xs: '0.8rem', md: '0.875rem' } }}>About Us</Link>
-              <Link href="#" color="inherit" display="block" sx={{ mb: 1, fontSize: { xs: '0.8rem', md: '0.875rem' } }}>Services</Link>
-              <Link href="#" color="inherit" display="block" sx={{ mb: 1, fontSize: { xs: '0.8rem', md: '0.875rem' } }}>Events</Link>
-              <Link href="#" color="inherit" display="block" sx={{ fontSize: { xs: '0.8rem', md: '0.875rem' } }}>Contact</Link>
+              <Link href ="https://facebook.com/JAHKZR" target="_blank" color="inherit" display="block" sx={{ mb: 1, fontSize: { xs: '0.8rem', md: '0.875rem' } }}>About Us</Link>
+              <Link href="#services" color="inherit" display="block" sx={{ mb: 1, fontSize: { xs: '0.8rem', md: '0.875rem' } }}>Services</Link>
+              <Link href="#events" color="inherit" display="block" sx={{ mb: 1, fontSize: { xs: '0.8rem', md: '0.875rem' } }}>Events</Link>
+              <Link href="#contact" color="inherit" display="block" sx={{ fontSize: { xs: '0.8rem', md: '0.875rem' } }}>Contact</Link>
             </Box>
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
@@ -58,33 +59,55 @@ const Footer = () => {
               Contact Us
             </Typography>
             <Typography variant="body2" sx={{ mb: 1, fontSize: { xs: '0.8rem', md: '0.875rem' } }}>
-              123 Islamic Center Road,<br />
-              City, State 12345
+              Indira Market,<br />
+              Kaghaznagar, Telangana 504296
             </Typography>
-            <Link href="tel:+1234567890" color="inherit" display="block" sx={{ mb: 1, fontSize: { xs: '0.8rem', md: '0.875rem' } }}>
-              Phone: +123 456 7890
+            <Link href="tel:+919989259049" color="inherit" display="block" sx={{ mb: 1, fontSize: { xs: '0.8rem', md: '0.875rem' } }}>
+              Phone: +91 99892 59049
             </Link>
-            <Link href="mailto:info@masjideaisha.com" color="inherit" display="block" sx={{ fontSize: { xs: '0.8rem', md: '0.875rem' } }}>
-              Email: info@masjideaisha.com
+            <Link href="tel:+919505200044" color="inherit" display="block" sx={{ mb: 1, fontSize: { xs: '0.8rem', md: '0.875rem' } }}>
+              Phone: +91 95052 00044
             </Link>
+            
             </section>
           </Grid>
           
         </Grid>
         <Box sx={{ mt: 4, textAlign: 'center' }}>
-          <IconButton color="inherit" aria-label="Facebook">
+          <IconButton color="inherit" aria-label="Facebook" href='https://facebook.com/JAHKZR'>
             <Facebook />
           </IconButton>
-          <IconButton color="inherit" aria-label="Twitter">
+          <IconButton color="inherit" aria-label="Twitter" href='https://x.com/J_ahlehadith'>
             <Twitter />
           </IconButton>
-          <IconButton color="inherit" aria-label="Instagram">
+          <IconButton color="inherit" aria-label="Instagram" href='https://instagram.com/ahlehadithskzr'>
             <Instagram />
           </IconButton>
+          
         </Box>
         <Typography variant="body2" align="center" sx={{ mt: 2, fontSize: { xs: '0.7rem', md: '0.75rem' } }}>
           © {new Date().getFullYear()} Masjid e Aisha. All rights reserved.
-        </Typography>
+             </Typography>
+             <Typography
+  variant="body2"
+  align="center"
+  sx={{
+    mt: 2,
+    fontSize: { xs: '0.6rem', md: '0.6rem' },
+    color: 'grey',
+    '& a': {
+      color: 'inherit', // Matches the text color
+      textDecoration: 'none', // No underline by default
+    },
+    '& a:hover': {
+      color : 'white',
+      textDecoration: 'underline', // Underline on hover
+    },
+  }}
+>
+  designed & developed by <a href="http://github.com/sayeedamodi" target="_blank" rel="noopener noreferrer">@sayeedamodi</a>
+</Typography>
+
         </section>
       </Container>
       </Box>

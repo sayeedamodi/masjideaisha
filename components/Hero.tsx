@@ -48,7 +48,7 @@ const Hero = () => {
           gutterBottom
           data-aos="fade-up"
           sx={{
-            fontSize: { xs: '2rem', sm: '3rem', md: '4rem' }, // Adjust font size for different screens
+            fontSize: { xs: '1.5rem', sm: '2rem', md: '4rem' }, // Adjust font size for different screens
             fontWeight: 'bold',
             transition: 'transform 0.3s ease',
             '&:hover': {
@@ -68,7 +68,7 @@ const Hero = () => {
             },
           }}
         >
-          Masjid e Aisha (RA)
+          Masjid e Aisha (R.A)
         </Typography>
       </Container>
     </Box>

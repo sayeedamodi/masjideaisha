@@ -51,7 +51,7 @@ const Header = () => {
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <img src="/logo-bg.png" alt="Masjid e Aisha Logo" style={{ height: 60, marginRight: 16 }} />
             <Typography variant="h6" sx={{ fontWeight: 700, color: 'primary.main', display: { xs: 'none', md: 'flex' } }}>
-              Masjid e Aisha
+              Masjid e Aisha(R.A)
             </Typography>
           </Box>
 

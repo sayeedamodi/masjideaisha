@@ -27,7 +27,7 @@ const Donate = () => {
       return;
     }
 
-    const upiLink = `upi://pay?pa=yourupi@upi&pn=Masjid%20Donation&mc=0000&tid=1234567890&txnid=1&amount=${amount}&url=https://masjideaisha.com`;
+    const upiLink = `upi://pay?pa=9573862287@jupiteraxis&pn=Masjid%20Donation&mc=0000&tid=1234567890&txnid=1&amount=${amount}&url=https://masjideaisha.com`;
 
     // Open the UPI apps using the link
     window.location.href = upiLink;

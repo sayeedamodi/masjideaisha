@@ -13,14 +13,16 @@ type Prayer = {
 };
 
 const PrayerTimings = () => {
-  const [prayers, setPrayers] = useState<Prayer[]>([]); // Define the state type as an array of Prayer objects
+  const [prayers, setPrayers] = useState<Prayer[]>([]);
+  const [createdAt, setCreatedAt] = useState<string | null>(null); // Define the state type as an array of Prayer objects
 
   useEffect(() => {
     // Fetch prayer times from the backend when the component mounts
     const fetchPrayerTimes = async () => {
       try {
-        const response = await axios.get('http://masjideaisha.vercel.app/api/data'); // Replace with your actual backend URL
+        const response = await axios.get('http://localhost:5000/data'); // Replace with your actual backend URL
         const prayerData = response.data.prayerTimings;
+
 
         // Format the prayer data to match the structure in the frontend
         const prayerArray: Prayer[] = [
@@ -62,7 +64,8 @@ const PrayerTimings = () => {
           },
         ];
 
-        setPrayers(prayerArray); // Set prayers state with fetched data
+        setPrayers(prayerArray);
+        setCreatedAt( prayerData.createdAt);  // Set prayers state with fetched data
       } catch (err) {
         console.error('Error fetching prayer times:', err);
       }
@@ -74,8 +77,8 @@ const PrayerTimings = () => {
   return (
     <Box data-aos="fade-up" sx={{ py: { xs: 4, md: 8 }, backgroundColor: 'white' }}>
       <Container maxWidth="md">
-        <Typography variant="h3" gutterBottom align="center" color="primary" sx={{ mb: 4, fontSize: { xs: '1.75rem', sm: '2.5rem', md: '3rem' } }}>
-          Prayer Timings نماز کے اوقات
+        <Typography variant="h3" gutterBottom align="center" color="primary" sx={{ mb: 4, fontSize: { xs: '1.4rem', sm: '2.5rem', md: '3rem' } }}>
+          Prayer Timings  نماز کے اوقات
         </Typography>
         <TableContainer component={Paper} elevation={0} sx={{ border: '1px solid', borderColor: 'divider' }}>
           <Table>
@@ -100,8 +103,13 @@ const PrayerTimings = () => {
                   <TableCell align="right" sx={{ fontSize: { xs: '0.9rem', md: '1rem' } }}>{prayer.time}</TableCell>
                 </TableRow>
               ))}
+             
             </TableBody>
+            <Typography variant="caption" sx={{ position: 'absolute', bottom: 8, right: 8, fontSize: '0.75rem', color: 'text.disabled' }}>
+            last updated at:{new Date(createdAt).toLocaleString()}
+              </Typography>
           </Table>
+          
         </TableContainer>
       </Container>
     </Box>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import {Campaign} from '@mui/icons-material';
 import { Card, CardContent, Typography, Container, Box, Grid } from '@mui/material';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -23,7 +24,7 @@ const NoticeBoard = () => {
     // Fetch notices from the backend
     const fetchNotices = async () => {
       try {
-        const response = await axios.get('http://masjideaisha.vercel.app/api/data'); // Replace with your backend URL
+        const response = await axios.get('http://localhost:5000/notice'); // Replace with your backend URL
         const fetchedNotice = response.data.Notice; // Access the Notice object directly
 
         // Wrap the fetched data in an array if it's not already in array form
@@ -41,8 +42,9 @@ const NoticeBoard = () => {
   return (
     <Box sx={{ py: { xs: 4, md: 8 }, backgroundColor: 'background.default' }}>
       <Container  maxWidth="lg">
+        <section id="events">
         <Typography variant="h3" gutterBottom align="center" color="primary" sx={{ mb: 4, fontSize: { xs: '1.75rem', sm: '2.5rem', md: '3rem' } }}>
-          Latest Notices
+        <Campaign sx={{ fontSize: { xs: 30, md: 40 }, color: 'primary.main', mr: 2 }} /> Latest Notices
         </Typography>
         <Grid container  spacing={4} justifyContent="center">
           {notices.map((notice, index) => (
@@ -56,13 +58,14 @@ const NoticeBoard = () => {
                     {notice.content}
                   </Typography>
                   <Typography variant="caption" sx={{ position: 'absolute', bottom: 8, right: 8, fontSize: '0.75rem', color: 'text.disabled' }}>
-                    {new Date(notice.createdAt).toLocaleString()}
+                  last updated at: {new Date(notice.createdAt).toLocaleString()}
                   </Typography>
                 </CardContent>
               </Card>
             </Grid>
           ))}
         </Grid>
+        </section>
       </Container>
     </Box>
   );
