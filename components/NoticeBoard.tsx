@@ -24,7 +24,7 @@ const NoticeBoard = () => {
     // Fetch notices from the backend
     const fetchNotices = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/notice'); // Replace with your backend URL
+        const response = await axios.get('http://masjideaisha.onrender.com/notice'); // Replace with your backend URL
         const fetchedNotice = response.data.Notice; // Access the Notice object directly
 
         // Wrap the fetched data in an array if it's not already in array form
