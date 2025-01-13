@@ -83,7 +83,6 @@ const Footer = () => {
           <IconButton color="inherit" aria-label="Instagram" href='https://instagram.com/ahlehadithskzr'>
             <Instagram />
           </IconButton>
-          
         </Box>
         <Typography variant="body2" align="center" sx={{ mt: 2, fontSize: { xs: '0.7rem', md: '0.75rem' } }}>
           © {new Date().getFullYear()} Masjid e Aisha. All rights reserved.

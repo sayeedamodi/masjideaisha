@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Container, Box } from '@mui/material';
 import axios from 'axios';
 import AOS from 'aos';
+
 import 'aos/dist/aos.css';
 
 // Define a type for the prayer data
@@ -15,14 +16,14 @@ type Prayer = {
 const PrayerTimings = () => {
   const [prayers, setPrayers] = useState<Prayer[]>([]);
   const [createdAt, setCreatedAt] = useState<string | null>(null); // Define the state type as an array of Prayer objects
-
+ 
   useEffect(() => {
     // Fetch prayer times from the backend when the component mounts
     const fetchPrayerTimes = async () => {
       try {
         const response = await axios.get('https://masjideaisha.onrender.com/data'); // Replace with your actual backend URL
         const prayerData = response.data.prayerTimings;
-
+      
 
         // Format the prayer data to match the structure in the frontend
         const prayerArray: Prayer[] = [
@@ -65,7 +66,8 @@ const PrayerTimings = () => {
         ];
 
         setPrayers(prayerArray);
-        setCreatedAt( prayerData.createdAt);  // Set prayers state with fetched data
+        setCreatedAt( prayerData.createdAt); 
+         // Set prayers state with fetched data
       } catch (err) {
         console.error('Error fetching prayer times:', err);
       }
