@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Container, Box } from '@mui/material';
 import axios from 'axios';
 import AOS from 'aos';
-
 import 'aos/dist/aos.css';
 
 // Define a type for the prayer data
@@ -17,13 +16,41 @@ const PrayerTimings = () => {
   const [prayers, setPrayers] = useState<Prayer[]>([]);
   const [createdAt, setCreatedAt] = useState<string | null>(null); // Define the state type as an array of Prayer objects
  
+  const fetchMaghribPrayerTime = async () => {
+    try {
+      const response = await axios.get('https://api.sunrise-sunset.org/json?lat=19.35176&lng=79.48323&date=2025-01-24&formatted=0'); // Replace with your actual backend URL
+      const prayerData = response.data.results.sunset;
+      
+      // Convert time to 12-hour format (AM/PM)
+      const convertTo12HourFormat = (time: string) => {
+        const date = new Date(time);
+        return date.toLocaleString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+      };
+      
+      // Update only Maghrib prayer data
+      setPrayers((prevPrayers) => {
+        const updatedPrayers = [...prevPrayers];
+        updatedPrayers[3] = {
+          ...updatedPrayers[3],  // Keep other fields unchanged
+          Azaantime: convertTo12HourFormat(prayerData),
+          time: convertTo12HourFormat(prayerData),
+        };
+        return updatedPrayers;
+      });
+
+    } catch (err) {
+      console.error('Error fetching Maghrib prayer time:', err);
+    }
+  };
+  
+
   useEffect(() => {
     // Fetch prayer times from the backend when the component mounts
     const fetchPrayerTimes = async () => {
       try {
         const response = await axios.get('https://masjideaisha.onrender.com/data'); // Replace with your actual backend URL
         const prayerData = response.data.prayerTimings;
-      
+        
 
         // Format the prayer data to match the structure in the frontend
         const prayerArray: Prayer[] = [
@@ -67,7 +94,7 @@ const PrayerTimings = () => {
 
         setPrayers(prayerArray);
         setCreatedAt( prayerData.createdAt); 
-         // Set prayers state with fetched data
+        fetchMaghribPrayerTime();
       } catch (err) {
         console.error('Error fetching prayer times:', err);
       }

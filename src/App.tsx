@@ -11,6 +11,7 @@ import FacebookFeed from '../components/Facebookfeed';
 import Footer from '../components/Footer';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import Saum from '../components/Saum';
 
 
 
@@ -102,8 +103,9 @@ function App() {
         }}>
           <Header />
           <Hero />
-          <PrayerTimings />
+          <PrayerTimings  />
           <NoticeBoard/>
+          <Saum/>
           <LatestInfo />
           <Donate />
           <Gallery />
