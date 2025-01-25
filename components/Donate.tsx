@@ -22,7 +22,10 @@ const Donate = () => {
         useEffect(() => {
           const fetchDonationSettings = async () => {
             try {
-              const response = await fetch("https://masjideaisha.onrender/api/donation-settings");
+              const response = await fetch("https://masjideaisha.onrender.com/api/donation-settings");
+              if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+              }
               const data = await response.json();
               console.log(data);
               setUpiId(data.upiId || "Not Available");
@@ -34,6 +37,8 @@ const Donate = () => {
           };
           fetchDonationSettings();
         }, []); 
+
+
 
   const [open, setOpen] = useState(false);
   const [amount, setAmount] = useState('');
@@ -79,8 +84,9 @@ const Donate = () => {
           <DialogTitle>Donate via UPI</DialogTitle>
           <DialogContent>
             <Card variant="outlined" className="mt-4">
-              <CardContent>
-                <div className="relative w-full h-40 mb-4">
+              <div className='flex items-center justify-center'>
+              <CardContent style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }} >
+                <div className="relative w-full h-40 mb-4 ">
                   <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
                     <div className="text-center">
                       <Typography variant="h6" color="inherit" className="mb-2">
@@ -99,7 +105,10 @@ const Donate = () => {
                   </div>
                 </div>
                 <Typography variant="body2" color="textSecondary" align="center" className="mb-4">
-                  Copy the UPI ID and paste and pay in any UPI app or scan the QR below with any UPI app
+                  Copy the UPI ID , paste and pay in any UPI app 
+                </Typography>
+                <Typography variant="body2" color="textSecondary" align="center" className="mb-4">
+                or scan the QR below with any UPI app
                 </Typography>
                 <div className="text-center">
                   <Typography variant="h6" className="mb-2">
@@ -112,20 +121,21 @@ const Donate = () => {
                     width={200}
                     height={200}
                   />
-                </div>
-              </CardContent>
-              <Typography variant="caption" sx={{ position: 'absolute', bottom: 8, right: 8, fontSize: '0.75rem', color: 'text.disabled' }}>
+                  <Typography variant="caption" sx={{ position: 'absolute', bottom: 8, left: 8, fontSize: '0.75rem', color: 'text.disabled' }}>
                                 last updated at: {new Date(updated).toLocaleString()}
                                 </Typography>
+                </div>
+                
+              </CardContent>
+              </div>
             </Card>
           </DialogContent>
+          
           <DialogActions>
             <Button variant="outlined" onClick={handleClose}>
               Cancel
             </Button>
-            <Button variant="contained" color="primary" onClick={handleUPIPayment}>
-              Donate
-            </Button>
+            
           </DialogActions>
         </Dialog>
         </section>
