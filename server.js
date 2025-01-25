@@ -5,7 +5,9 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
-
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from 'url';
 
 const app = express();
 dotenv.config();
@@ -197,6 +199,66 @@ app.put('/update/news', verifyToken, async (req, res) => {
   }
 });
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Create the path to the donationSettings.json file
+const settingsFile = path.join(__dirname, 'donationSettings.json');
+console.log(settingsFile);
+fs.readFile(settingsFile, 'utf8', (err, data) => {
+  if (err) {
+    console.error('Failed to read settings file:', err);
+    return;
+  }
+  try {
+    const settings = JSON.parse(data);
+    console.log(settings);
+  } catch (parseError) {
+    console.error('Failed to parse JSON:', parseError);
+  }
+});
+
+if (fs.existsSync(settingsFile)) {
+  console.log('File exists');
+} else {
+  console.log('File not found');
+}
+// Endpoint to get current settings
+app.get("/api/donation-settings", (req, res) => {
+  try {
+    const data = fs.readFileSync(settingsFile, "utf8");
+    res.status(200).json(JSON.parse(data));
+    if (err) {
+      console.error('Failed to read settings file:', err);
+      return;
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Failed to read settings file" });
+    console.log(settingsFile);
+  }
+});
+
+// Endpoint to update settings
+app.put("/api/donation-settings",verifyToken, (req, res) => {
+  const { upiId, imageUrl } = req.body;
+
+  if (!upiId || !imageUrl) {
+    return res.status(400).json({ message: "UPI ID and Image URL are required" });
+  }
+
+  const updatedData = {
+    upiId,
+    imageUrl,
+    updatedAt: new Date().toISOString(),
+  };
+
+  try {
+    fs.writeFileSync(settingsFile, JSON.stringify(updatedData, null, 2));
+    res.status(200).json({ message: "Settings updated successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to update settings file" });
+  }
+});
 // Start server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

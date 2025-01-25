@@ -14,6 +14,35 @@
       padding: 10px;
       margin: 10px 0;
     }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: bold;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 5px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .message {
+      margin-top: 20px;
+      font-size: 16px;
+      color: green;
+    }
     button {
       padding: 10px;
       background-color: #4CAF50;
@@ -78,6 +107,19 @@
     <textarea id="content" placeholder="News Content" required></textarea>
     <button type="submit">Update News</button>
   </form>
+
+  <form id="adminForm">
+    <div class="form-group">
+      <label for="upiId">UPI ID:</label>
+      <input type="text" id="upiId" placeholder="Enter UPI ID" />
+    </div>
+    <div class="form-group">
+      <label for="imageUrl">Image URL:</label>
+      <input type="text" id="imageUrl" placeholder="Enter Image URL" />
+    </div>
+    <button type="button" id="updateBtn">Update</button>
+  </form>
+  <div class="message" id="message"></div>
 
   <script>
    async function fetchAdminData() {
@@ -221,6 +263,62 @@ document.getElementById('prayer-form').addEventListener('submit', async (event) 
         alert('Failed to update news: ' + data.message);
       }
     });
+
+    function fetchSettings() {
+      fetch('https://masjideaisha.onrender.com/api/donation-settings')
+        .then((response) => response.json())
+        .then((data) => {
+          document.getElementById('upiId').value = data.upiId;
+          document.getElementById('imageUrl').value = data.imageUrl;
+        })
+        .catch((error) => {
+          console.error('Error fetching settings:', error);
+        });
+    }
+
+    // Update settings
+    document.getElementById('updateBtn').addEventListener('click', function () {
+      const upiId = document.getElementById('upiId').value;
+      const imageUrl = document.getElementById('imageUrl').value;
+
+      if (!upiId || !imageUrl) {
+        document.getElementById('message').innerText = 'Please fill out both fields.';
+        document.getElementById('message').style.color = 'red';
+        return;
+      }
+
+      const token = localStorage.getItem('token');
+  if (!token) {
+    alert('Please log in first.');
+    window.location.href = '/login.html';
+    return;
+  }
+
+      fetch('https://masjideaisha.onrender.com/api/donation-settings', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ upiId, imageUrl }),
+      })
+        .then((response) => {
+          if (response.ok) {
+            document.getElementById('message').innerText = 'Settings updated successfully!';
+            document.getElementById('message').style.color = 'green';
+          } else {
+            throw new Error('Failed to update settings');
+          }
+        })
+        .catch((error) => {
+          console.error('Error updating settings:', error);
+          document.getElementById('message').innerText = 'Error updating settings.';
+          document.getElementById('message').style.color = 'red';
+        });
+    });
+
+    // Call fetchSettings on page load
+    fetchSettings();  
   </script>
 
 </body>
