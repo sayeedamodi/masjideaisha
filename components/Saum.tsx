@@ -12,6 +12,8 @@ import DarkModeIcon from "@mui/icons-material/DarkMode"
 import axios from "axios"
 import { translations } from "./translations"
 import "aos/dist/aos.css"
+import { Link } from "lucide-react"
+import InfoWithLink from "./Infowithlink"
 
 // Define light and dark themes
 const lightTheme = createTheme({
@@ -136,7 +138,11 @@ const textVariants = {
 
   return (
     <ThemeProvider theme={themeMode === "light" ? lightTheme : darkTheme}>
+      <InfoWithLink></InfoWithLink>
       <CssBaseline />
+      <div>
+     
+
       <Paper
         onClick={toggleTheme} // Click or touch to toggle theme
         data-aos="fade-up"
@@ -157,12 +163,14 @@ const textVariants = {
           boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
         }}
       >
+        
         <Box component={motion.div} variants={itemVariants} sx={{ mb: 3, textAlign: "center" }}>
+
           <Typography sx={{ color: themeMode === "light" ? "darkgrey" : "white" }} variant="body1">
             {format(currentTime, "EEEE, MMMM d, yyyy")}
           </Typography>
           <Typography sx={{ color: themeMode === "light" ? "black" : "white" }} variant="body2">
-            {` ${hijriDate.month} ${hijriDate.year} ${hijriDate.day}`}
+            {`  ${hijriDate.year}  , ${hijriDate.day} , ${hijriDate.month} `}
           </Typography>
         </Box>
         <Grid container spacing={3}>
@@ -234,13 +242,19 @@ const textVariants = {
                   </motion.div>
                 </AnimatePresence>
               </Box>
+              
               <Typography variant="h5" sx={{  color: themeMode === "light" ? "black" : "white" }}>
           {prayerTimes.iftar ? format(prayerTimes.iftar, "hh:mm a") : "Loading..."}
         </Typography> 
+        
             </Paper>
           </Grid>
+          
         </Grid>
+        
       </Paper>
+      
+       </div>
     </ThemeProvider>
   )
 }

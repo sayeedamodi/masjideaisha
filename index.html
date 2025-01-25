@@ -19,6 +19,11 @@
   src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0" 
   nonce="ABC123">
 </script>
+<script>
+  if (typeof navigator.serviceWorker !== 'undefined') {
+    navigator.serviceWorker.register('sw.js')
+  }
+</script>
 <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   <body>
     

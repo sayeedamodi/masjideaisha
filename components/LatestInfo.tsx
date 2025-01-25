@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, Typography, Container, Box, Grid, Button } from '@mui/material';
-import { Event, LiveTv, MeetingRoom, Announcement, School } from '@mui/icons-material';
+import { Event, LiveTv, MeetingRoom, School } from '@mui/icons-material';
+import MosqueIcon from '@mui/icons-material/Mosque';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -28,15 +29,7 @@ const infoItems = [
       ur: 'ہم جمعیت اہل حدیث کمیونٹی کا فخر حصہ ہیں، جو اسلام کی حقیقی تعلیمات پر عمل پیرا ہیں۔',
     },
     icon: School,
-  },
-  {
-    title: { en: 'Community Iftar', ur: 'کمیونٹی افطار' },
-    content: {
-      en: 'We are organizing a community iftar every Friday during Ramadan. All are welcome to join.',
-      ur: 'ہم رمضان کے دوران ہر جمعہ کو کمیونٹی افطار کا اہتمام کرتے ہیں۔ تمام افراد کو مدعو کیا جاتا ہے۔',
-    },
-    icon: Announcement,
-  },
+  }
 ];
 
 const LatestInfo = () => {
@@ -62,9 +55,9 @@ const LatestInfo = () => {
   onClick={toggleLanguage}
   variant="outlined"   // Makes the button less prominent
   color="secondary"  // Makes the button use the default color (not primary)
-  sx={{ mb: 4 }}
+  sx={{ mb: 2 }}
 >
-  {language === 'en' ? 'اُردُو' : 'english'}  {/* Urdu for "e" when in English and vice versa */}
+  {language === 'en' ? 'اُردُو' : 'eng'}  {/* Urdu for "e" when in English and vice versa */}
 </Button>
 
           <Grid container spacing={4}>
