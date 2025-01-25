@@ -104,15 +104,43 @@ const PrayerTimings = () => {
   }, []);
 
   return (
-    <Box data-aos="fade-up" sx={{ py: { xs: 4, md: 8 }, backgroundColor: 'white' }}>
+    <Box data-aos="fade-up" sx={
+      { 
+        py: { xs: 4, md: 8 }, 
+        backgroundColor: '#f9f9f9', 
+        borderRadius: '12px', 
+        boxShadow: '0px 8px 16px rgba(0,0,0,0.1)', 
+        overflow: 'hidden'
+      }
+    }>
       <Container maxWidth="md">
-        <Typography variant="h3" gutterBottom align="center" color="primary" sx={{ mb: 4, fontSize: { xs: '1.4rem', sm: '2.5rem', md: '3rem' } }}>
+        <Typography
+         variant="h3" 
+         gutterBottom 
+         align="center" 
+         color="primary" 
+         sx={{ 
+           mb: 4, 
+           fontSize: { xs: '1.4rem', sm: '2.5rem', md: '3rem' },
+           fontWeight: 'bold', 
+           textShadow: '0px 2px 4px rgba(0,0,0,0.1)' 
+         }}>
           Prayer Timings  نماز کے اوقات
         </Typography>
-        <TableContainer component={Paper} elevation={0} sx={{ border: '1px solid', borderColor: 'divider' }}>
-          <Table>
+        <TableContainer 
+        component={Paper} 
+        elevation={0} 
+        sx={{ 
+          border: '1px solid', 
+          borderColor: 'divider', 
+          borderRadius: '8px', 
+          overflow: 'hidden', 
+          backgroundColor: '#ffffff',
+          animation: 'fadeIn 1s ease-in-out'
+        }}>
+          <Table >
             <TableHead>
-              <TableRow>
+              <TableRow  sx={{ backgroundColor: '#e3f2fd' }}>
                 <TableCell sx={{ fontWeight: 'bold', fontSize: { xs: '1rem', md: '1.1rem' } }}>Prayer</TableCell>
                 <TableCell sx={{ fontWeight: 'bold', fontSize: { xs: '1rem', md: '1.1rem' } }}></TableCell>
                 <TableCell align="right" sx={{ fontWeight: 'bold', fontSize: { xs: '1rem', md: '1.1rem' } }}>Azaan</TableCell>
@@ -121,7 +149,12 @@ const PrayerTimings = () => {
             </TableHead>
             <TableBody>
               {prayers.map((prayer) => (
-                <TableRow key={prayer.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                <TableRow
+                key={prayer.name}
+                sx={{ 
+                  '&:hover': { backgroundColor: '#f1f1f1' }, 
+                  transition: 'background-color 0.3s ease' 
+                }}>
                   <TableCell component="th" scope="row" sx={{ fontSize: { xs: '0.9rem', md: '1rem' } }}>
                     {prayer.name}
                   </TableCell>

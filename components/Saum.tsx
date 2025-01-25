@@ -146,6 +146,8 @@ const textVariants = {
         initial="hidden"
         animate="visible"
         sx={{
+          mt : 2,
+          mb : 2,
           p: 4,
           maxWidth: "90%",
           width: "100%",

@@ -106,8 +106,8 @@ function App() {
           <PrayerTimings  />
           <NoticeBoard/>
           <Saum/>
-          <LatestInfo />
           <Donate />
+          <LatestInfo />
           <Gallery />
           <FacebookFeed/>
           <Footer />

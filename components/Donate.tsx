@@ -12,8 +12,8 @@ const Donate = () => {
  const [updated , setUpdated] = useState("");
    useEffect(() => {
           AOS.init({
-            duration: 1200, // animation duration in milliseconds
-            once: true, // animation triggers only once
+            duration: 1200, 
+            once: true, 
           });
 
           
@@ -64,7 +64,7 @@ const Donate = () => {
   };
 
   return (
-    <Box sx={{ py: { xs: 4, md: 8 }, backgroundColor: 'primary.main', color: 'white' }}>
+    <Box sx={{ py: { xs: 4, md: 8 , mt : 5 },marginTop:'10px', backgroundColor: 'primary.main', color: 'white' }}>
       <Container maxWidth="md" sx={{ textAlign: 'center' }}>
         <section id="donate">
         <Typography variant="h3" gutterBottom>Support Our Mosque</Typography>

@@ -5,54 +5,84 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-    }
-    input, textarea {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-    }
-    .form-group {
-      margin-bottom: 15px;
-    }
-    .form-group label {
-      display: block;
-      font-weight: bold;
-    }
-    .form-group input {
-      width: 100%;
-      padding: 10px;
-      font-size: 16px;
-      margin-top: 5px;
-    }
-    button {
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-    .message {
-      margin-top: 20px;
-      font-size: 16px;
-      color: green;
-    }
-    button {
-      padding: 10px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
+body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+        h2 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        form {
+            display: grid;
+            gap: 15px;
+        }
+        textarea {
+         height: 300px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .button-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .button-container button {
+            flex: 1;
+        }
+        @media (min-width: 768px) {
+            .prayer-times {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+        }
+        #adminForm {
+            display: none;
+        }
   </style>
 </head>
 <body>
+ <div class="Card">
+  <div class="button-container">
+   <a href="https://login.sendpulse.com/push/"><button id="pushNotificationBtn">Send Push Notification</button></a> 
+</div>
+<hr>
+<hr>
 
   <h2>Update Prayer Timings</h2>
   <form id="prayer-form">
@@ -92,24 +122,32 @@
     </div>
   
     <div>
-        <label for="jumuah-azan">Isha Azan Time</label>
+        <label for="jumuah-azan">Jumuah Azan</label>
         <input type="text" id="jumuah-azan" placeholder="jumuah Time " required>
-        <label for="jumuah-prayer">Isha Prayer Time</label>
+        <label for="jumuah-prayer">Jumuah Prayer</label>
         <input type="text" id="jumuah-prayer" placeholder="jumuah Prayer Time" required>
       </div>
     <button type="submit">Update Prayer Timings</button>
   </form>
-  
+  <hr>
+  <hr>
 
-  <h2>Update Latest News</h2>
+
+  <h2>Update Latest Notice</h2>
   <form id="news-form">
     <input type="text" id="title" placeholder="News Title" required>
-    <textarea id="content" placeholder="News Content" required></textarea>
-    <button type="submit">Update News</button>
+    <textarea class="textarea" id="content" placeholder="News Content" required></textarea>
+    <button type="submit">Update Notice</button>
   </form>
+  <hr>
+  <hr>
 
-  <form id="adminForm">
+  <button id="toggleAdminFormBtn">upi settings</button>
+  <form id="adminForm" class="card">
+    <h2>Upi Settings</h2>
     <div class="form-group">
+      <div class="message" id="message"></div>
+      <a href="https://imgbb.com/">click here to get image url ?</a>
       <label for="upiId">UPI ID:</label>
       <input type="text" id="upiId" placeholder="Enter UPI ID" />
     </div>
@@ -117,9 +155,12 @@
       <label for="imageUrl">Image URL:</label>
       <input type="text" id="imageUrl" placeholder="Enter Image URL" />
     </div>
+     
     <button type="button" id="updateBtn">Update</button>
   </form>
   <div class="message" id="message"></div>
+</div>
+
 
   <script>
    async function fetchAdminData() {
@@ -318,7 +359,15 @@ document.getElementById('prayer-form').addEventListener('submit', async (event) 
     });
 
     // Call fetchSettings on page load
-    fetchSettings();  
+    fetchSettings(); 
+    
+   
+    document.getElementById('toggleAdminFormBtn').addEventListener('click', function() {
+            var adminForm = document.getElementById('adminForm');
+            var isHidden = adminForm.style.display === 'none' || adminForm.style.display === '';
+            adminForm.style.display = isHidden ? 'block' : 'none';
+            this.textContent = isHidden ? 'Hide upi' : 'Show upi';
+        }); 
   </script>
 
 </body>

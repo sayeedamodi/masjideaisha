@@ -85,7 +85,7 @@ const Header = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {['Home','Donate', 'About', 'Services', 'Contact' ].map((page) => (
+              {['Home','Donate', 'About', 'Services', 'Contact', 'Android App' ].map((page) => (
                 <MenuItem key={page}
                  onClick={handleCloseNavMenu}  
                 component="a" // This makes MenuItem behave like a link
@@ -97,7 +97,7 @@ const Header = () => {
           </Box>
 
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            {['Home','Donate','About', 'Services', 'Contact'].map((page) => (
+            {['Home','Donate','About', 'Services', 'Contact' , 'Android App'].map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
