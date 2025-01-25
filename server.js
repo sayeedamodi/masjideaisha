@@ -203,7 +203,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Create the path to the donationSettings.json file
-const settingsFile = path.join(__dirname, 'donationSettings.json');
+const settingsFile = path.join(__dirname, 'donationsettings.json');
 console.log(settingsFile);
 fs.readFile(settingsFile, 'utf8', (err, data) => {
   if (err) {
