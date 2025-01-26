@@ -161,10 +161,9 @@ const Footer = () => {
             <Typography variant="body2" sx={{ mb: 1 }}>
               &copy; {year} Masjid e Aisha. All rights reserved.
             </Typography>
-            <a href="#" className="sp_notify_prompt">enable notifications</a>
             <section id="developer">
             <Typography variant="caption" sx={{ color: "primary.contrastText" ,  "&:hover": { color: "secondary.main" } }}>
-              Designed & developed by{" "}
+              developed by{" "}
               <Link
                 href="http://github.com/sayeedamodi"
                 target="_blank"

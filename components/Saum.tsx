@@ -14,6 +14,7 @@ import { translations } from "./translations"
 import "aos/dist/aos.css"
 import { Link } from "lucide-react"
 import InfoWithLink from "./Infowithlink"
+import { CircularProgress } from "@mui/material"
 
 // Define light and dark themes
 const lightTheme = createTheme({
@@ -206,7 +207,11 @@ const textVariants = {
                 </AnimatePresence>
               </Box>
               <Typography variant="h5" sx={{  color: themeMode === "light" ? "black" : "white" }}>
-          {prayerTimes.suhoor ? format(prayerTimes.suhoor, "hh:mm a") : "Loading..."}
+          {prayerTimes.suhoor ? format(prayerTimes.suhoor, "hh:mm a") :(
+    <Box display="flex" alignItems="center" justifyContent="center">
+      <CircularProgress size={24} />
+    </Box>
+  )}
         </Typography> 
             
             </Paper>
@@ -243,9 +248,15 @@ const textVariants = {
                 </AnimatePresence>
               </Box>
               
-              <Typography variant="h5" sx={{  color: themeMode === "light" ? "black" : "white" }}>
-          {prayerTimes.iftar ? format(prayerTimes.iftar, "hh:mm a") : "Loading..."}
-        </Typography> 
+              <Typography variant="h5" sx={{ color: themeMode === "light" ? "black" : "white" }}>
+  {prayerTimes.iftar ? (
+    format(prayerTimes.iftar, "hh:mm a")
+  ) : (
+    <Box display="flex" alignItems="center" justifyContent="center">
+      <CircularProgress size={24} />
+    </Box>
+  )}
+</Typography>;
         
             </Paper>
           </Grid>
