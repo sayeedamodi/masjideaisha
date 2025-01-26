@@ -171,7 +171,7 @@ const NoticeBoard = () => {
                       <Typography
                         variant="body1"
                         sx={{
-                          fontSize: { xs: "0.9rem", md: "1rem" },
+                          fontSize: { xs: "1rem", md: "1rem" },
                           color: "text.primary.light",
                           mb: 3,
                           transition: "color 0.3s ease-in-out",

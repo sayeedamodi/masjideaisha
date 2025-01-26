@@ -200,11 +200,11 @@ const textVariants = {
     >
       <motion.div variants={itemVariants}>
         <Typography
-          variant="h6"
           sx={{
             color: themeMode === "light" ? "#1e3a8a" : "#fff",
             fontWeight: "bold",
             mb: 1,
+            fontSize : '1rem'
           }}
         >
           {format(new Date(currentTime), "EEEE, MMMM d, yyyy")}

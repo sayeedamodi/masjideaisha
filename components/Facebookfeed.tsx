@@ -42,8 +42,8 @@ const FacebookFeedEmbed = () => {
       {/* Facebook Embed */}
       <Box
         sx={{
-          width: { xs: '100%', sm: '600px', lg: '500px' },
-          maxWidth: '100%',
+          width: { xs: '90%', sm: '400px', lg: '500px' },
+          maxWidth: '90%',
           borderRadius: 2,
           overflow: 'hidden',
           boxShadow: 3,

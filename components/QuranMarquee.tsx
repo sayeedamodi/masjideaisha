@@ -31,7 +31,7 @@ const QuranMarquee = () => {
         sx={{
           display: "inline-block",
           animation: `${marqueeAnimation} 50s linear infinite`,
-          fontSize: "1.3em",
+          fontSize: "1em",
           color : "grey"
         }}
       >
