@@ -14,7 +14,8 @@ import { translations } from "./translations"
 import "aos/dist/aos.css"
 import { Link } from "lucide-react"
 import InfoWithLink from "./Infowithlink"
-import { CircularProgress } from "@mui/material"
+import { CircularProgress , useTheme } from "@mui/material"
+import { LocationOn } from "@mui/icons-material"
 
 // Define light and dark themes
 const lightTheme = createTheme({
@@ -22,7 +23,7 @@ const lightTheme = createTheme({
     primary: { main: "#7c4dff" },
     secondary: { main: "#ff4081" },
     background: {
-      default: "#f0f0f0",
+      default: "#ffffff",
       paper: "#ffffff",
     },
   },
@@ -40,6 +41,7 @@ const darkTheme = createTheme({
   palette: {
     primary: { main: "#7c4dff" },
     secondary: { main: "#ff4081" },
+  
   },
   typography: {
     fontFamily: "Roboto, Arial, sans-serif",
@@ -48,15 +50,22 @@ const darkTheme = createTheme({
     body1: { fontWeight: 300 , color : "#fff"},
     body2: { fontWeight: 300, fontStyle: "italic" , color : "#fff" },
   },
+  
 })
 
+const islamicPattern = {
+  backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+  backgroundRepeat: "repeat",
+  backgroundSize: "60px 60px",
+}
 export default function Saum() {
   const [currentTime, setCurrentTime] = useState(new Date())
   const [prayerTimes, setPrayerTimes] = useState({ suhoor: null, iftar: null })
   const [isUrdu, setIsUrdu] = useState(false)
   const [hijriDate, setHijriDate] = useState({})
   const [themeMode, setThemeMode] = useState("light") // State to track theme
-
+  const theme = useTheme()
+  const isDarkMode = theme.palette.mode === "dark"
   const lang = isUrdu ? "ur" : "en"
 
   // Function to fetch prayer times
@@ -121,16 +130,24 @@ export default function Saum() {
     setThemeMode((prev) => (prev === "light" ? "dark" : "light"))
   }
  // Define variants for container and items
+
 const containerVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, staggerChildren: 0.3 } },
+  hidden: { opacity: 0, y: -20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      staggerChildren: 0.1,
+    },
+  },
 }
+
 
 const itemVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1 },
+  hidden: { opacity: 0, y: -10 },
+  visible: { opacity: 1, y: 0 },
 }
-
 const textVariants = {
   enter: { y: 20, opacity: 0 },
   center: { y: 0, opacity: 1 },
@@ -153,27 +170,75 @@ const textVariants = {
         initial="hidden"
         animate="visible"
         sx={{
-          mt : 2,
-          mb : 2,
+          mt : 4,
+          mb : 4,
           p: 4,
+          transition:
+            "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out",
+          "&:hover": {
+            transform: "translateY(-5px)"
+          },
           maxWidth: "90%",
           width: "100%",
-          bgcolor: themeMode === "light" ? "#ffffff" : "#1d1d1d", // Set background color based on theme
+          bgcolor: themeMode === "light" ? "#f9f9f9" : "#1d1d1d", // Set background color based on theme
           margin: "0 auto",
-          borderRadius: 3,
+          borderRadius: 8,
           boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
         }}
       >
         
-        <Box component={motion.div} variants={itemVariants} sx={{ mb: 3, textAlign: "center" }}>
+        <Box
+      component={motion.div}
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      sx={{
+        mb: 3,
+        textAlign: "center",
+        padding: theme.spacing(2)
+      }}
+    >
+      <motion.div variants={itemVariants}>
+        <Typography
+          variant="h6"
+          sx={{
+            color: themeMode === "light" ? "#1e3a8a" : "#fff",
+            fontWeight: "bold",
+            mb: 1,
+          }}
+        >
+          {format(new Date(currentTime), "EEEE, MMMM d, yyyy")}
+        </Typography>
+      </motion.div>
 
-          <Typography sx={{ color: themeMode === "light" ? "darkgrey" : "white" }} variant="body1">
-            {format(currentTime, "EEEE, MMMM d, yyyy")}
-          </Typography>
-          <Typography sx={{ color: themeMode === "light" ? "black" : "white" }} variant="body2">
-            {`  ${hijriDate.year}  , ${hijriDate.day} , ${hijriDate.month} `}
-          </Typography>
+      <motion.div variants={itemVariants}>
+        <Typography
+          variant="body1"
+          sx={{
+            mb: 2,
+            direction : 'rtl'
+          }}
+        >
+         
+          {`${hijriDate.day} ${hijriDate.month} ${hijriDate.year}`}
+          <span style={{  fontSize: "0.9em" }}>ه</span>
+        </Typography>
+      </motion.div>
+
+      <motion.div variants={itemVariants} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: themeMode === "light" ? "#1e3a8a" : "#fff",
+          }}
+        >
+          <LocationOn sx={{ mr: 1  }} />
+          <Typography variant="body2" sx={{color: themeMode === "light" ? "#1e3a8a" : "#fffff",}}>Kagaznagar</Typography>
         </Box>
+      </motion.div>
+    </Box>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
             <Paper
@@ -182,6 +247,7 @@ const textVariants = {
               elevation={2}
               sx={{
                 p: 3,
+                borderRadius : 10 ,
                 height: "100%",
                 display: "flex",
                 flexDirection: "column",
@@ -192,7 +258,7 @@ const textVariants = {
               }}
             >
               <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
-                <DarkModeIcon sx={{ mr: 1 , color: themeMode === "light" ? "black" : "white" }} />
+                <DarkModeIcon sx={{ mr: 1 , color: themeMode === "light" ? "grey" : "white" }} />
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={lang}
@@ -206,7 +272,7 @@ const textVariants = {
                   </motion.div>
                 </AnimatePresence>
               </Box>
-              <Typography variant="h5" sx={{  color: themeMode === "light" ? "black" : "white" }}>
+              <Typography variant="h5" sx={{  color: themeMode === "light" ? "#1e3a8a" : "white" }}>
           {prayerTimes.suhoor ? format(prayerTimes.suhoor, "hh:mm a") :(
     <Box display="flex" alignItems="center" justifyContent="center">
       <CircularProgress size={24} />
@@ -223,6 +289,7 @@ const textVariants = {
               elevation={2}
               sx={{
                 p: 3,
+                borderRadius : 10 ,
                 height: "100%",
                 display: "flex",
                 flexDirection: "column",
@@ -233,7 +300,7 @@ const textVariants = {
               }}
             >
               <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
-                <WbSunnyIcon sx={{ mr: 1 , color: themeMode === "light" ? "black" : "white" } } />
+                <WbSunnyIcon sx={{ mr: 1 , color: themeMode === "light" ? "grey" : "white" } } />
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={lang}
@@ -248,7 +315,7 @@ const textVariants = {
                 </AnimatePresence>
               </Box>
               
-              <Typography variant="h5" sx={{ color: themeMode === "light" ? "black" : "white" }}>
+              <Typography variant="h5" sx={{ color: themeMode === "light" ? "#1e3a8a" : "white" }}>
   {prayerTimes.iftar ? (
     format(prayerTimes.iftar, "hh:mm a")
   ) : (
@@ -256,7 +323,7 @@ const textVariants = {
       <CircularProgress size={24} />
     </Box>
   )}
-</Typography>;
+</Typography>
         
             </Paper>
           </Grid>

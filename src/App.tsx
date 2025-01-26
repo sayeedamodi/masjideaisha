@@ -12,6 +12,7 @@ import Footer from '../components/Footer';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Saum from '../components/Saum';
+import QuranMarquee from '../components/QuranMarquee';
 
 
 
@@ -101,9 +102,11 @@ function App() {
           display: 'flex',
           flexDirection: 'column',
         }}>
+          
           <Header />
           <Hero />
           <PrayerTimings  />
+          <QuranMarquee/>
           <NoticeBoard/>
           <Saum/>
           <Donate />

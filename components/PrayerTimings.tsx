@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Container, Box } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Container, Box, rgbToHex } from '@mui/material';
 import axios from 'axios';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -122,10 +122,11 @@ const PrayerTimings = () => {
          sx={{ 
            mb: 4, 
            fontSize: { xs: '1.4rem', sm: '2.5rem', md: '3rem' },
-           fontWeight: 'bold', 
+           fontWeight: 'bold',
+           fontFamily: 'fancy', 
            textShadow: '0px 2px 4px rgba(0,0,0,0.1)' 
          }}>
-          Prayer Timings  نماز کے اوقات
+          Prayer timings  نماز کے اوقات
         </Typography>
         <TableContainer 
         component={Paper} 
@@ -133,14 +134,14 @@ const PrayerTimings = () => {
         sx={{ 
           border: '1px solid', 
           borderColor: 'divider', 
-          borderRadius: '8px', 
+          borderRadius: '25px', 
           overflow: 'hidden', 
           backgroundColor: '#ffffff',
           animation: 'fadeIn 1s ease-in-out'
         }}>
           <Table >
             <TableHead>
-              <TableRow  sx={{ backgroundColor: '#e3f2fd' }}>
+              <TableRow  sx={{ backgroundColor:'rgb(233, 233, 233)'}}>
                 <TableCell sx={{ fontWeight: 'bold', fontSize: { xs: '1rem', md: '1.1rem' } }}>Prayer</TableCell>
                 <TableCell sx={{ fontWeight: 'bold', fontSize: { xs: '1rem', md: '1.1rem' } }}></TableCell>
                 <TableCell align="right" sx={{ fontWeight: 'bold', fontSize: { xs: '1rem', md: '1.1rem' } }}>Azaan</TableCell>
@@ -153,16 +154,16 @@ const PrayerTimings = () => {
                 key={prayer.name}
                 sx={{ 
                   '&:hover': { backgroundColor: '#f1f1f1' }, 
-                  transition: 'background-color 0.3s ease' 
+                  transition: 'background-color 0.2s ease' 
                 }}>
-                  <TableCell component="th" scope="row" sx={{ fontSize: { xs: '0.9rem', md: '1rem' } }}>
+                  <TableCell component="th" scope="row" sx={{ fontSize: { xs: '1rem', md: '1.2rem' } }}>
                     {prayer.name}
                   </TableCell>
-                  <TableCell component="th" scope="row" sx={{ fontSize: { xs: '0.9rem', md: '1rem' } }}>
+                  <TableCell component="th" scope="row" sx={{ fontSize: { xs: '1rem', md: '1.2rem' } }}>
                     {prayer.nameArabic}
                   </TableCell>
-                  <TableCell align="right" sx={{ fontSize: { xs: '0.9rem', md: '1rem' } }}>{prayer.Azaantime}</TableCell>
-                  <TableCell align="right" sx={{ fontSize: { xs: '0.9rem', md: '1rem' } }}>{prayer.time}</TableCell>
+                  <TableCell align="right" sx={{ fontSize: { xs: '1rem', md: '1.2rem' } }}>{prayer.Azaantime}</TableCell>
+                  <TableCell align="right" sx={{ fontSize: { xs: '1rem', md: '1.2rem' } }}>{prayer.time}</TableCell>
                 </TableRow>
               ))}
              

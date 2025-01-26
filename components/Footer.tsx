@@ -49,7 +49,7 @@ const Footer = () => {
       sx={{
         bgcolor: "primary.main",
         color: "primary.contrastText",
-        py: 6,
+        py: 2,
         position: "relative",
         overflow: "hidden",
       }}

@@ -3,8 +3,8 @@ import { Box, Button, Link, Typography  } from "@mui/material"
 import {  Map } from "lucide-react"
 const MapFooterEmbed: React.FC = () => {
   return (
-    <Box sx={{ width: "100%", height: "300px", mb: 4 , pb : 4 } }>
-       <Box sx={{ mt: 2 }}>
+    <Box sx={{ width: "100%", height: "300px", mb: 4 , pb : 4 , textAlign : 'center',} }>
+       <Box sx={{ mt: 0 }}>
                 <Button
                   variant="outlined"
                   startIcon={<Map />}
