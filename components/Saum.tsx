@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { format } from "date-fns"
+import { format, subDays } from "date-fns"
 import { motion, AnimatePresence } from "framer-motion"
 import { ThemeProvider, createTheme } from "@mui/material/styles"
 import CssBaseline from "@mui/material/CssBaseline"
@@ -82,9 +82,15 @@ export default function Saum() {
           date: format(date, "yyyy-MM-dd"),
         },
       })
+
+      const yesterday = subDays(new Date(), 1);
+
+    // Format the date as "dd-MM-yyyy"
+      const formattedDate = format(yesterday, "dd-MM-yyyy");
+
       const responsehijridate = await axios.get("https://api.aladhan.com/v1/gToH", {
         params: {
-          date: format(date, "dd-MM-yyyy"),
+          date: formattedDate,
         },
       })
 
