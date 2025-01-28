@@ -60,7 +60,8 @@ const islamicPattern = {
 }
 export default function Saum() {
   const [currentTime, setCurrentTime] = useState(new Date())
-  const [prayerTimes, setPrayerTimes] = useState({ suhoor: null, iftar: null })
+  const [prayerTimes, setPrayerTimes] = useState({ suhoor: null})
+  const [iftarTime , setIftarTime]= useState({iftar : null })
   const [isUrdu, setIsUrdu] = useState(false)
   const [hijriDate, setHijriDate] = useState({})
   const [themeMode, setThemeMode] = useState("light") // State to track theme
@@ -96,10 +97,36 @@ export default function Saum() {
 
       const hijri = responsehijridate.data.data.hijri
       const data = responsetime.data.results
+     
+          
+    const dateModify = format(date, "dd-MM-yyyy")
+    const response = await axios.get("https://api.aladhan.com/v1/timings/" + dateModify,
+           {
+             params: {
+               latitude: 19.35176,
+               longitude: 79.48323,
+               method: 1,
+               shafaq: "general",
+               tune: "5,3,5,7,9,-1,0,8,-6",
+               school: 0,
+               timezonestring: "Asia/Kolkata",
+               calendarMethod: "HJCoSA",
+             },
+             headers: {
+               Accept: "application/json",
+             },
+           }
+         );
+ 
 
+      const sunset = response.data.data.timings.Sunset;
+      
       setPrayerTimes({
-        suhoor: new Date(data.astronomical_twilight_begin),
-        iftar: new Date(data.sunset),
+        suhoor: new Date(data.astronomical_twilight_begin)
+      })
+
+      setIftarTime ({
+        iftar: sunset
       })
 
       setHijriDate({
@@ -112,6 +139,17 @@ export default function Saum() {
     }
   }
 
+  const formatTime = (time) => {
+    const [hours, minutes] = time.split(':');
+    const date = new Date();
+    date.setHours(hours);
+    date.setMinutes(minutes);
+    return date.toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    });
+  }; 
   // Update prayer times at midnight
   useEffect(() => {
     fetchPrayerTimes(currentTime)
@@ -322,13 +360,14 @@ const textVariants = {
               </Box>
               
               <Typography variant="h5" sx={{ color: themeMode === "light" ? "#1e3a8a" : "white" }}>
-  {prayerTimes.iftar ? (
-    format(prayerTimes.iftar, "hh:mm a")
-  ) : (
-    <Box display="flex" alignItems="center" justifyContent="center">
-      <CircularProgress size={24} />
-    </Box>
-  )}
+  {
+     iftarTime.iftar ? formatTime(iftarTime.iftar) :  (
+        <Box display="flex" alignItems="center" justifyContent="center">
+          <CircularProgress size={24} />
+        </Box>
+      )
+
+  }
 </Typography>
         
             </Paper>

@@ -3,6 +3,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 import axios from 'axios';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { format } from 'date-fns';
 
 // Define a type for the prayer data
 type Prayer = {
@@ -18,22 +19,49 @@ const PrayerTimings = () => {
  
   const fetchMaghribPrayerTime = async () => {
     try {
-      const response = await axios.get('https://api.sunrise-sunset.org/json?lat=19.35176&lng=79.48323&date=2025-01-24&formatted=0'); // Replace with your actual backend URL
-      const prayerData = response.data.results.sunset;
-      
-      // Convert time to 12-hour format (AM/PM)
-      const convertTo12HourFormat = (time: string) => {
-        const date = new Date(time);
-        return date.toLocaleString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+
+      const formatTime = (time) => {
+        const [hours, minutes] = time.split(':');
+        const date = new Date();
+        date.setHours(hours);
+        date.setMinutes(minutes);
+        return date.toLocaleTimeString('en-US', {
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: true,
+        });
       };
+
+    const dateModify = format( new Date(), "dd-MM-yyyy")
+    const response = await axios.get("https://api.aladhan.com/v1/timings/" + dateModify,
+           {
+             params: {
+               latitude: 19.35176,
+               longitude: 79.48323,
+               method: 1,
+               shafaq: "general",
+               tune: "5,3,5,7,9,-1,0,8,-6",
+               school: 0,
+               timezonestring: "Asia/Kolkata",
+               calendarMethod: "HJCoSA",
+             },
+             headers: {
+               Accept: "application/json",
+             },
+           }
+         );
+ 
+
+      const sunset = response.data.data.timings.Sunset;
+
       
       // Update only Maghrib prayer data
       setPrayers((prevPrayers) => {
         const updatedPrayers = [...prevPrayers];
         updatedPrayers[3] = {
           ...updatedPrayers[3],  // Keep other fields unchanged
-          Azaantime: convertTo12HourFormat(prayerData),
-          time: convertTo12HourFormat(prayerData),
+          Azaantime: formatTime(sunset),
+          time: formatTime(sunset),
         };
         return updatedPrayers;
       });
@@ -50,7 +78,7 @@ const PrayerTimings = () => {
       try {
         const response = await axios.get('https://masjideaisha.onrender.com/data'); // Replace with your actual backend URL
         const prayerData = response.data.prayerTimings;
-        
+        const updatedAt = response.data.prayerTimings.createdAt
 
         // Format the prayer data to match the structure in the frontend
         const prayerArray: Prayer[] = [
@@ -93,7 +121,7 @@ const PrayerTimings = () => {
         ];
 
         setPrayers(prayerArray);
-        setCreatedAt( prayerData.createdAt); 
+        setCreatedAt(createdAt); 
         fetchMaghribPrayerTime();
       } catch (err) {
         console.error('Error fetching prayer times:', err);
@@ -169,7 +197,7 @@ const PrayerTimings = () => {
              
             </TableBody>
             <Typography variant="caption" sx={{ position: 'absolute', bottom: 8, right: 8, fontSize: '0.75rem', color: 'text.disabled' }}>
-            last updated at:{new Date(createdAt).toLocaleString()}
+            Last updated at:{new Date(createdAt).toLocaleString()}
               </Typography>
           </Table>
           

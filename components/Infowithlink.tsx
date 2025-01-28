@@ -52,11 +52,16 @@ const InfoWithLink: React.FC = () => {
             rel="noopener noreferrer"
             sx={{ color: "text.secondary" }}
           >
-            clickhere 
+            clickhere !
           </Link>{" "}
-          (diff +1/-1 minute may occur).
+          (dif ±1 min may occur).
+          <br />
+          <Link href="https://aladhan.com/prayer-times-api#get-/timings/-date-"  target="_blank">aladhan</Link> and <Link href="https://sunrise-sunset.org/api"  target="_blank">sunrise/sunset</Link> API used
           <br />
         </Typography>
+
+
+
       )}
     </div>
   );
