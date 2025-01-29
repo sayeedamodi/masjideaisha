@@ -121,7 +121,7 @@ const PrayerTimings = () => {
         ];
 
         setPrayers(prayerArray);
-        setCreatedAt(createdAt); 
+        setCreatedAt(prayerData.createdAt); 
         fetchMaghribPrayerTime();
       } catch (err) {
         console.error('Error fetching prayer times:', err);
@@ -196,7 +196,7 @@ const PrayerTimings = () => {
               ))}
              
             </TableBody>
-            <Typography variant="caption" sx={{ position: 'absolute', bottom: 8, right: 8, fontSize: '0.75rem', color: 'text.disabled' }}>
+            <Typography variant="caption" sx={{ position: 'absolute',fontStyle: "italic", bottom: 8, right: 8, fontSize: '0.75rem', color: 'text.disabled' }}>
             Last updated at:{new Date(createdAt).toLocaleString()}
               </Typography>
           </Table>
