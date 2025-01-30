@@ -81,6 +81,15 @@ body {
         #adminForm {
             display: none;
         }
+
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .toggle-label {
+            font-size: 18px;
+        }
   </style>
 </head>
 <body>
@@ -141,11 +150,18 @@ body {
   <hr>
   <hr>
 
+  <!-- <div class="toggle-container">
+    <label class="toggle-label">Show Announcement:</label>
+    <input type="checkbox" id="toggleSwitch">
+</div> -->
 
-  <h2>Update Latest Notice</h2>
+<p id="statusMessage"></p>
+
+
+  <h2>Update Announcements</h2>
   <form id="news-form">
-    <input type="text" id="title" placeholder="News Title" required>
-    <textarea class="textarea" id="content" placeholder="News Content" required></textarea>
+    <input type="text" id="title" placeholder="Announcement title" required>
+    <textarea class="textarea" id="content" placeholder="Announcement Content" required></textarea>
     <button type="submit">Update Notice</button>
   </form>
   <hr>
@@ -376,7 +392,61 @@ document.getElementById('prayer-form').addEventListener('submit', async (event) 
             var isHidden = adminForm.style.display === 'none' || adminForm.style.display === '';
             adminForm.style.display = isHidden ? 'block' : 'none';
             this.textContent = isHidden ? 'Hide upi' : 'Show upi';
-        }); 
+        });
+        
+        
+
+        // const toggleSwitch = document.getElementById("toggleSwitch");
+        // const statusMessage = document.getElementById("statusMessage");
+
+        
+        // async function fetchShowHideStatus() {
+        //     try {
+        //         const response = await fetch("http://localhost:5000/api/showhideannouncement");
+        //         const data = await response.json();
+        //         toggleSwitch.checked = data.showAnnouncement;
+        //     } catch (error) {
+        //         console.error("Error fetching settings:", error);
+        //     }
+        // }
+        
+        
+        
+        // async function updateShowHideStatus() {
+        //     const newStatus = toggleSwitch.checked;
+
+        //     const token = localStorage.getItem('token');
+        //    if (!token) {
+        //    alert('Please log in first.');
+        //    window.location.href = '/login.html';
+        //    return;
+        //   }
+
+        //     try {
+        //         const response = await fetch("http://localhost:5000/api/showhideannouncement", {
+        //             method: "PUT",
+        //             headers: { "Content-Type": "application/json", 'Authorization': `Bearer ${token}` },
+        //             body: JSON.stringify({ showAnnouncement: newStatus }),
+        //         });
+
+        //         if (response.ok) {
+        //             statusMessage.textContent = "Display preference updated successfully!";
+        //             statusMessage.style.color = "green";
+        //         } else {
+        //             throw new Error("Failed to update settings");
+        //         }
+        //     } catch (error) {
+        //         statusMessage.textContent = "Error updating preference!";
+        //         statusMessage.style.color = "red";
+        //         console.error("Error:", error);
+        //     }
+        // }
+
+        
+        // fetchShowHideStatus();
+
+      
+        // toggleSwitch.addEventListener("change", updateShowHideStatus);
   </script>
 
 </body>

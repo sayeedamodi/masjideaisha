@@ -12,7 +12,7 @@ import { fileURLToPath } from 'url';
 const app = express();
 dotenv.config();
 const PORT = process.env.PORT || 5000;
-const SECRET_KEY = process.env.SECRET_KEY ;
+const SECRET_KEY = process.env.SECRET_KEY || "MasjideAishadb" ;
 const { sign } = jwt;
 // Middleware
 app.use(bodyParser.json());
@@ -204,7 +204,9 @@ const __dirname = path.dirname(__filename);
 
 // Create the path to the donationSettings.json file
 const settingsFile = path.join(__dirname, 'donationsettings.json');
+const showAnnouncementFile = path.join(__dirname, 'showAnnouncement.json');
 console.log(settingsFile);
+
 fs.readFile(settingsFile, 'utf8', (err, data) => {
   if (err) {
     console.error('Failed to read settings file:', err);
@@ -238,6 +240,20 @@ app.get("/api/donation-settings", (req, res) => {
   }
 });
 
+//to get show hide 
+app.get("/api/showhideannouncement" , (req , res)=>{
+  try {
+    const data = fs.readFileSync(showAnnouncementFile, "utf8");
+    res.status(200).json(JSON.parse(data));
+    if(err){
+      console.log('Failed to read show hide settings file:', err);
+      return;
+    }
+  } catch(error){
+    res.status(500).json({message : "failed to read settings file"});
+    console.log(showAnnouncementFile);
+  }
+})
 // Endpoint to update settings
 app.put("/api/donation-settings",verifyToken, (req, res) => {
   const { upiId, imageUrl } = req.body;
@@ -259,6 +275,19 @@ app.put("/api/donation-settings",verifyToken, (req, res) => {
     res.status(500).json({ message: "Failed to update settings file" });
   }
 });
+
+app.put("/api/showhideannouncement", verifyToken , (req,res)=> {
+  const { showAnnouncement } = req.body;
+  const updatedData = {
+    showAnnouncement
+  };
+  try {
+    fs.writeFileSync(showAnnouncementFile, JSON.stringify(updatedData, null, 2));
+    res.status(200).json({message: "display preference changed"});
+    } catch (error) {
+      res.status(500).json({message: "Failed to update show hide settings file"});
+  }
+})
 // Start server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

@@ -121,7 +121,7 @@ const NoticeBoard = () => {
               }}
             >
               <Campaign sx={{ fontSize: { xs: 40, md: 50 }, color: "primary.main", mr: 2 }} />
-              Latest Notices
+              Announcements
             </Typography>
           {loading ? (
             <Box sx={{ display: "flex", justifyContent: "center", my: 4 }}>
