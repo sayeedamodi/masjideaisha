@@ -84,7 +84,7 @@ export default function Saum() {
         },
       })
 
-      const yesterday = subDays(new Date(), 0);
+      const yesterday = subDays(new Date(), 1);
 
     // Format the date as "dd-MM-yyyy"
       const formattedDate = format(yesterday, "dd-MM-yyyy");
